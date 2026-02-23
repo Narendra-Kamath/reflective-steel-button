@@ -1,0 +1,162 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #151515;
+    background-image: radial-gradient(circle at 50% 50%, #2a2a2a 0%, #111 100%);
+    font-family: sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.metallic-button {
+    position: relative;
+    width: 350px;
+    height: 180px;
+    border-radius: 35px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    /* Basic brushed metal conic gradient */
+    background: conic-gradient(from 180deg at 50% 50%,
+            #9c9c9c 0deg,
+            #f0f0f0 45deg,
+            #7a7a7a 90deg,
+            #e8e8e8 135deg,
+            #9c9c9c 180deg,
+            #f0f0f0 225deg,
+            #7a7a7a 270deg,
+            #e8e8e8 315deg,
+            #9c9c9c 360deg);
+    box-shadow:
+        0px 25px 50px rgba(0, 0, 0, 0.8),
+        /* large drop shadow */
+        inset 0px 4px 6px rgba(255, 255, 255, 0.9),
+        /* inner top light highlight */
+        inset 0px -4px 6px rgba(0, 0, 0, 0.5),
+        /* inner bottom shadow */
+        0px 0px 0px 8px #959595,
+        /* inner bezel line */
+        0px 0px 0px 10px #e4e4e4,
+        /* middle bright casing */
+        0px 0px 0px 16px #4d4d4d;
+    /* outer dark casing */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metallic-button:active {
+    transform: scale(0.96) translateY(5px);
+    box-shadow:
+        0px 10px 20px rgba(0, 0, 0, 0.8),
+        inset 0px 8px 12px rgba(0, 0, 0, 0.6),
+        inset 0px -2px 4px rgba(255, 255, 255, 0.3),
+        0px 0px 0px 8px #959595,
+        0px 0px 0px 10px #e4e4e4,
+        0px 0px 0px 16px #4d4d4d;
+}
+
+/* Container to hold the blurred reflection */
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    z-index: 1;
+    opacity: 0.85;
+    /* Increased opacity for more reflection */
+    mix-blend-mode: multiply;
+    /* Better for realistic dark/light metal interaction */
+    pointer-events: none;
+}
+
+#webcam-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160%;
+    height: 160%;
+    /* Mirror the webcam and center it */
+    transform: translate(-50%, -50%) scaleX(-1);
+    object-fit: cover;
+    /* Extremely blurry, desaturated, high contrast for glossy metal reflection */
+    filter: blur(8px) contrast(1.8) saturate(0.2) brightness(1.1);
+}
+
+.metal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 35px;
+    /* Complex layered gradient for brushed/polished metal feel + strong vignette */
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 50%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.4) 100%),
+        radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.6) 110%);
+    z-index: 2;
+    pointer-events: none;
+    mix-blend-mode: hard-light;
+    /* Interacts strongly with the underlying multiply video layer */
+}
+
+/* Glassy highlight indicating a curved, polished dome */
+.highlight {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 96%;
+    height: 40%;
+    border-radius: 32px 32px 100px 100px / 32px 32px 20px 20px;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(255, 255, 255, 0.3) 40%,
+            rgba(255, 255, 255, 0.0) 100%);
+    z-index: 3;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.play-icon-wrapper {
+    position: relative;
+    z-index: 4;
+    margin-left: 20px;
+    /* Simulate a thick, bevelled border around the carved hole */
+    filter:
+        drop-shadow(1px 2px 2px rgba(255, 255, 255, 0.9))
+        /* bottom/right highlight */
+        drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.8));
+    /* top/left shadow */
+}
+
+.play-svg {
+    /* Set the SVG to let light through for max reflection */
+    backdrop-filter: brightness(1.2) contrast(1.1);
+    mix-blend-mode: overlay;
+    border-radius: 5px;
+    /* soften the edges where it meets metal */
+    overflow: visible;
+}
+
+/* We create an offset highlight by applying a stroke with a dashed array trick 
+   OR a second smaller/offset polygon. For simplicity, just an offset stroke. */
+.play-highlight-stroke {
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 2px;
+    transform: translate(-1px, -1px);
+    /* Shift it up to simulate light hitting the bottom edge */
+    mix-blend-mode: normal;
+}

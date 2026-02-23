@@ -1,0 +1,19 @@
+{
+  "name": "reflective-steel-button",
+  "version": "1.0.0",
+  "description": "A realistic metallic play button with webcam reflections.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "metallic",
+    "button",
+    "webcam",
+    "reflection",
+    "css"
+  ],
+  "author": "Narendra Kamath",
+  "license": "MIT"
+}

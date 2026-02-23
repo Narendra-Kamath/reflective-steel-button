@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metallic Play Button</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <button id="play-btn" class="metallic-button" aria-label="Play">
+            <div class="video-container">
+                <video id="webcam-video" autoplay muted playsinline></video>
+            </div>
+            <div class="metal-overlay"></div>
+            <div class="highlight"></div>
+            <div class="play-icon-wrapper">
+                <svg width="65" height="75" viewBox="0 0 65 75" class="play-svg">
+                    <!-- Drop shadows applied via CSS filter -->
+                    <polygon points="0,0 0,75 65,37.5" fill="rgba(0,0,0,0.1)" stroke="rgba(0,0,0,0.8)"
+                        stroke-width="2" />
+                    <!-- Highlight stroke on bottom right -->
+                    <polygon points="0,0 0,75 65,37.5" fill="none" class="play-highlight-stroke" />
+                </svg>
+            </div>
+        </button>
+    </div>
+    <script src="src/scripts/script.js"></script>
+</body>
+
+</html>
